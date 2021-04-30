@@ -199,6 +199,16 @@
 			path = DatePickerDataSource;
 			sourceTree = "<group>";
 		};
+		9829CA8C263C3F7E00D7490C /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				98DF01A9263AC297003A1257 /* AppDelegate.swift */,
+				98DF0203263AC3C0003A1257 /* Data */,
+				98DF02EF263AD86B003A1257 /* UI */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
 		98DF019D263AC297003A1257 = {
 			isa = PBXGroup;
 			children = (
@@ -225,12 +235,10 @@
 		98DF01A8263AC297003A1257 /* SpaceX */ = {
 			isa = PBXGroup;
 			children = (
-				98DF01A9263AC297003A1257 /* AppDelegate.swift */,
+				9829CA8C263C3F7E00D7490C /* Source */,
 				98DF01B2263AC298003A1257 /* Assets.xcassets */,
-				98DF0203263AC3C0003A1257 /* Data */,
 				98DF01B7263AC298003A1257 /* Info.plist */,
 				98DF01B4263AC298003A1257 /* LaunchScreen.storyboard */,
-				98DF02EF263AD86B003A1257 /* UI */,
 			);
 			path = SpaceX;
 			sourceTree = "<group>";
