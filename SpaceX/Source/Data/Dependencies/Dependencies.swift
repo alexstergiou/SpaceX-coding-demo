@@ -8,25 +8,32 @@
 import Foundation
 
 final class Dependencies {
+    let services: Services
+    let filtersManager: FiltersManagerProtocol
+
+    init(services: Services, filtersManager: FiltersManagerProtocol) {
+        self.services = services
+        self.filtersManager = filtersManager
+    }
+}
+
+final class Services {
     let client: NetworkClientProtocol
     let companyService: CompanyServiceProtocol
     let launchesService: LaunchesServiceProtocol
     let imageService: ImageServiceProtocol
     let rocketService: RocketServiceProtocol
-    let filtersManager: FiltersManagerProtocol
 
     init(client: NetworkClientProtocol,
          companyService: CompanyServiceProtocol,
          launchesService: LaunchesServiceProtocol,
          imageService: ImageService,
-         rocketService: RocketServiceProtocol,
-         filtersManager: FiltersManagerProtocol) {
+         rocketService: RocketServiceProtocol) {
         self.client = client
         self.companyService = companyService
         self.launchesService = launchesService
         self.imageService = imageService
         self.rocketService = rocketService
-        self.filtersManager = filtersManager
     }
 }
 
@@ -40,11 +47,12 @@ extension Dependencies {
         let rocketService: RocketService = RocketService(client: client)
         let filtersManager: FiltersManager = FiltersManager()
 
-        return Dependencies(client: client,
-                            companyService: companyService,
-                            launchesService: launchesService,
-                            imageService: imageService,
-                            rocketService: rocketService,
+        let services: Services = Services(client: client,
+                                          companyService: companyService,
+                                          launchesService: launchesService,
+                                          imageService: imageService,
+                                          rocketService: rocketService)
+        return Dependencies(services: services,
                             filtersManager: filtersManager)
     }
 }

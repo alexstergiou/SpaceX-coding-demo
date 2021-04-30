@@ -32,7 +32,7 @@ final class DashboardViewController: UITableViewController {
 extension DashboardViewController {
     func setupBarButtonItems() {
         navigationItem.largeTitleDisplayMode = .always
-        let item: UIBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Filters", comment: ""), style: .done, target: self, action: #selector(filterButtonTapped))
+        let item: UIBarButtonItem = UIBarButtonItem(title: L.Dashboard.filters, style: .done, target: self, action: #selector(filterButtonTapped))
         navigationItem.rightBarButtonItem = item
     }
 

@@ -8,6 +8,7 @@
 import Foundation
 
 struct DashboardCompanyItemViewModel: DashboardItem {
+    let type: DashboardItemType = .company
     let company: Company
 
     var name: String {

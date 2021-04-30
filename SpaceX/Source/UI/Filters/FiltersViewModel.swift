@@ -30,7 +30,7 @@ final class FiltersViewModel: FiltersViewModelProtocol {
     }
 
     var title: String {
-        return NSLocalizedString("Filters", comment: "")
+        return L.Dashboard.filters
     }
 
     func setup(tableView: UITableView) {

@@ -7,14 +7,8 @@
 
 import UIKit
 
-protocol DashboardLaunchesSectionViewModelProtocol: DashboardSection {
-    var numberOfItems: Int { get }
-
-    func update(with launches: [Launch])
-}
-
-final class DashboardLaunchesSectionViewModel: DashboardLaunchesSectionViewModelProtocol {
-    let title: String = NSLocalizedString("Launches", comment: "")
+final class DashboardLaunchesSectionViewModel: DashboardSection {
+    let title: String = L.Dashboard.launches
     let type: DashboardSectionType = .launches
     var items: [DashboardItem] = []
     let dateFormatter: DateFormatter

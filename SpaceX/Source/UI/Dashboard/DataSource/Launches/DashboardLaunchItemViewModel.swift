@@ -7,7 +7,11 @@
 
 import UIKit
 
-protocol DashboardLaunchItemViewModelProtocol: DashboardItem, AnyObject {
+protocol LaunchItem: DashboardItem, AnyObject {
+    var launch: Launch { get }
+}
+
+protocol DashboardLaunchItemViewModelProtocol: LaunchItem {
     var name: String { get }
     var daysSinceLaunch: Int { get }
     var daysSinceLaunchTitle: String { get }
@@ -24,6 +28,7 @@ protocol DashboardLaunchItemViewModelProtocol: DashboardItem, AnyObject {
 }
 
 final class DashboardLaunchItemViewModel: DashboardLaunchItemViewModelProtocol {
+    let type: DashboardItemType = .launch
     let launch: Launch
     let imageService: ImageServiceProtocol
     let rocketService: RocketServiceProtocol
@@ -65,7 +70,7 @@ final class DashboardLaunchItemViewModel: DashboardLaunchItemViewModelProtocol {
 
     var daysSinceLaunchTitle: String {
         let days: Int = daysSinceLaunch
-        return days > 0 ? NSLocalizedString("Days since now:", comment: "") : NSLocalizedString("Days from now:", comment: "")
+        return days > 0 ? L.Dashboard.daysSinceNow : L.Dashboard.daysFromNow
     }
 
     var outcomeImage: UIImage? {

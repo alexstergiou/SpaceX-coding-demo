@@ -11,19 +11,19 @@ import SnapKit
 final class LaunchTableViewCell: UITableViewCell {
     lazy var missionValueView: KeyValueLabelView = {
         let view = KeyValueLabelView()
-        view.update(key: NSLocalizedString("Mission:", comment: ""), value: nil)
+        view.update(key: L.Dashboard.mission, value: nil)
         return view
     }()
 
     lazy var dateValueView: KeyValueLabelView = {
         let view = KeyValueLabelView()
-        view.update(key: NSLocalizedString("Date/Time:", comment: ""), value: nil)
+        view.update(key: L.Dashboard.dateTime, value: nil)
         return view
     }()
 
     lazy var rocketValueView: KeyValueLabelView = {
         let view = KeyValueLabelView()
-        view.update(key: NSLocalizedString("Rocket:", comment: ""), value: nil)
+        view.update(key: L.Dashboard.rocket, value: nil)
         return view
     }()
 

@@ -22,6 +22,7 @@ protocol DashboardViewModelResponder: AnyObject {
 final class DashboardViewModel: DashboardViewModelProtocol {
     enum CoordinatorAction: DelegateAction {
         case filters([Launch])
+        case actions(DashboardItem)
     }
 
     let companyService: CompanyServiceProtocol
@@ -35,7 +36,7 @@ final class DashboardViewModel: DashboardViewModelProtocol {
     var launches: [Launch] = []
 
     var title: String {
-        return "SpaceX"
+        return L.app
     }
 
     init(companyService: CompanyServiceProtocol,
@@ -47,6 +48,8 @@ final class DashboardViewModel: DashboardViewModelProtocol {
         self.dataSource = dataSource
         self.filtersManager = filtersManager
         filtersManager.add(responder: self)
+
+        self.dataSource.selectionDelegate = self
     }
 
     func fetchData() {
@@ -105,5 +108,11 @@ extension DashboardViewModel {
 extension DashboardViewModel: FilterOperationsResponder {
     @objc func didUpdateFilters() {
         filterLaunchesAndUpdateDataSource()
+    }
+}
+
+extension DashboardViewModel: DashboardTableViewSelectionDelegate {
+    func didSelect(item: DashboardItem) {
+        actionDelegate?.didReceive(action: CoordinatorAction.actions(item))
     }
 }

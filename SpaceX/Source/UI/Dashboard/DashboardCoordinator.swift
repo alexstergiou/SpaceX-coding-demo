@@ -12,16 +12,20 @@ final class DashboardCoordinator: Coordinator {
     let router: Routable
     var children: [Coordinator] = []
     let dependencies: Dependencies
+    let linkAlertProvider: LinkAlertProvider
 
-    init(router: Routable, dependencies: Dependencies) {
+    init(router: Routable,
+         dependencies: Dependencies,
+         linkAlertProvider: LinkAlertProvider = LinkAlertProvider()) {
         self.router = router
         self.dependencies = dependencies
+        self.linkAlertProvider = linkAlertProvider
     }
 
     func start() {
-        let dataSource: DashboardTableViewDataSource = DashboardTableViewDataSource(launchesSection: DashboardLaunchesSectionViewModel(launchesService: dependencies.launchesService, imageService: dependencies.imageService, rocketService: dependencies.rocketService))
-        let viewModel: DashboardViewModel = DashboardViewModel(companyService: dependencies.companyService,
-                                                               launchesService: dependencies.launchesService,
+        let dataSource: DashboardTableViewDataSource = DashboardTableViewDataSource(services: dependencies.services)
+        let viewModel: DashboardViewModel = DashboardViewModel(companyService: dependencies.services.companyService,
+                                                               launchesService: dependencies.services.launchesService,
                                                                dataSource: dataSource,
                                                                filtersManager: dependencies.filtersManager)
         let viewController: DashboardViewController = DashboardViewController(viewModel: viewModel)
@@ -38,6 +42,8 @@ extension DashboardCoordinator: ActionDelegate {
             switch dashboardAction {
             case .filters:
                 showFilters()
+            case .actions(let item):
+                showActions(item: item)
             }
         }
     }
@@ -51,5 +57,11 @@ extension DashboardCoordinator {
         addChildCoordinator(coordinator)
 
         router.present(coordinator.router.navigationController, animated: true, completion: nil)
+    }
+
+    func showActions(item: DashboardItem) {
+        guard let controller = linkAlertProvider.alertController(for: item) else { return }
+
+        router.present(controller, animated: true, completion: nil)
     }
 }

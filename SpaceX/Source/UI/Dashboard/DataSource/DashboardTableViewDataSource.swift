@@ -18,10 +18,18 @@ protocol DashboardSection: AnyObject {
     var items: [DashboardItem] { get set }
 }
 
-protocol DashboardItem {}
+enum DashboardItemType {
+    case company
+    case launch
+}
 
-protocol DashboardTableViewDataSourceProtocol {
+protocol DashboardItem {
+    var type: DashboardItemType { get }
+}
+
+protocol DashboardTableViewDataSourceProtocol: AnyObject {
     var sections: [DashboardSection] { get set }
+    var selectionDelegate: DashboardTableViewSelectionDelegate? { get set }
 
     func setup(tableView: UITableView)
 
@@ -29,15 +37,22 @@ protocol DashboardTableViewDataSourceProtocol {
     func update(with launches: [Launch]) -> Int?
 }
 
+protocol DashboardTableViewSelectionDelegate: AnyObject {
+    func didSelect(item: DashboardItem)
+}
+
 final class DashboardTableViewDataSource: NSObject, DashboardTableViewDataSourceProtocol {
     var sections: [DashboardSection] = []
-    let companySection: DashboardCompanySectionViewModelProtocol
-    let launchesSection: DashboardLaunchesSectionViewModelProtocol
+    let companySection: DashboardCompanySectionViewModel
+    let launchesSection: DashboardLaunchesSectionViewModel
 
-    init(companySection: DashboardCompanySectionViewModelProtocol = DashboardCompanySectionViewModel(),
-         launchesSection: DashboardLaunchesSectionViewModelProtocol) {
-        self.companySection = companySection
-        self.launchesSection = launchesSection
+    weak var selectionDelegate: DashboardTableViewSelectionDelegate?
+
+    init(services: Services) {
+        self.companySection = DashboardCompanySectionViewModel()
+        self.launchesSection = DashboardLaunchesSectionViewModel(launchesService: services.launchesService,
+                                                                 imageService: services.imageService,
+                                                                 rocketService: services.rocketService)
 
         sections.append(companySection)
         sections.append(launchesSection)
@@ -129,5 +144,11 @@ extension DashboardTableViewDataSource: UITableViewDataSource {
 extension DashboardTableViewDataSource: UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.section(at: section)?.title
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let section = self.section(at: indexPath.section) else { return }
+        let item: DashboardItem = section.items[indexPath.row]
+        selectionDelegate?.didSelect(item: item)
     }
 }

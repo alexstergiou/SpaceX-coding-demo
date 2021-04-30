@@ -75,14 +75,14 @@ extension FiltersTableViewDataSource {
 
     func startText(date: Date?) -> String? {
         if let date = date {
-            return NSLocalizedString("Start: ", comment: "") + dateFormatter.string(from: date)
+            return L.Filters.start + dateFormatter.string(from: date)
         }
         return nil
     }
 
     func endText(date: Date?) -> String? {
         if let date = date {
-            return NSLocalizedString("End: ", comment: "") + dateFormatter.string(from: date)
+            return L.Filters.end + dateFormatter.string(from: date)
         }
         return nil
     }

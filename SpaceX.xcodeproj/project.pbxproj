@@ -14,6 +14,12 @@
 		98124756263BFD1800917FAC /* LaunchSuccessFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98124755263BFD1800917FAC /* LaunchSuccessFilter.swift */; };
 		9812475B263BFD2C00917FAC /* OrderAscendingFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9812475A263BFD2C00917FAC /* OrderAscendingFilter.swift */; };
 		98124760263C1BBB00917FAC /* UINavigationController+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9812475F263C1BBB00917FAC /* UINavigationController+Helpers.swift */; };
+		9829CA96263C3FEE00D7490C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9829CA99263C3FEE00D7490C /* Localizable.strings */; };
+		9829CA97263C3FEE00D7490C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9829CA99263C3FEE00D7490C /* Localizable.strings */; };
+		9829CA9F263C406500D7490C /* Localizations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9829CA9E263C406500D7490C /* Localizations.swift */; };
+		9829CAA0263C406500D7490C /* Localizations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9829CA9E263C406500D7490C /* Localizations.swift */; };
+		9829CAD9263C532100D7490C /* LinkAlertProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9829CAD8263C532100D7490C /* LinkAlertProvider.swift */; };
+		9829CADA263C532100D7490C /* LinkAlertProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9829CAD8263C532100D7490C /* LinkAlertProvider.swift */; };
 		98DF01AA263AC297003A1257 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DF01A9263AC297003A1257 /* AppDelegate.swift */; };
 		98DF01B3263AC298003A1257 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98DF01B2263AC298003A1257 /* Assets.xcassets */; };
 		98DF01B6263AC298003A1257 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98DF01B4263AC298003A1257 /* LaunchScreen.storyboard */; };
@@ -98,6 +104,9 @@
 		98124755263BFD1800917FAC /* LaunchSuccessFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchSuccessFilter.swift; sourceTree = "<group>"; };
 		9812475A263BFD2C00917FAC /* OrderAscendingFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderAscendingFilter.swift; sourceTree = "<group>"; };
 		9812475F263C1BBB00917FAC /* UINavigationController+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Helpers.swift"; sourceTree = "<group>"; };
+		9829CA98263C3FEE00D7490C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9829CA9E263C406500D7490C /* Localizations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localizations.swift; sourceTree = "<group>"; };
+		9829CAD8263C532100D7490C /* LinkAlertProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkAlertProvider.swift; sourceTree = "<group>"; };
 		98DF01A6263AC297003A1257 /* SpaceX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98DF01A9263AC297003A1257 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98DF01B2263AC298003A1257 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -209,6 +218,22 @@
 			path = Source;
 			sourceTree = "<group>";
 		};
+		9829CA9D263C403D00D7490C /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				9829CA9E263C406500D7490C /* Localizations.swift */,
+			);
+			path = Strings;
+			sourceTree = "<group>";
+		};
+		9829CAD7263C531000D7490C /* Links */ = {
+			isa = PBXGroup;
+			children = (
+				9829CAD8263C532100D7490C /* LinkAlertProvider.swift */,
+			);
+			path = Links;
+			sourceTree = "<group>";
+		};
 		98DF019D263AC297003A1257 = {
 			isa = PBXGroup;
 			children = (
@@ -239,6 +264,7 @@
 				98DF01B2263AC298003A1257 /* Assets.xcassets */,
 				98DF01B7263AC298003A1257 /* Info.plist */,
 				98DF01B4263AC298003A1257 /* LaunchScreen.storyboard */,
+				9829CA99263C3FEE00D7490C /* Localizable.strings */,
 			);
 			path = SpaceX;
 			sourceTree = "<group>";
@@ -265,6 +291,7 @@
 		98DF0203263AC3C0003A1257 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				9829CA9D263C403D00D7490C /* Strings */,
 				98DF03A3263B46CA003A1257 /* Filters */,
 				98DF0269263AD1EA003A1257 /* Dependencies */,
 				98DF0204263AC3CA003A1257 /* Network */,
@@ -421,6 +448,7 @@
 		98DF02EF263AD86B003A1257 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				9829CAD7263C531000D7490C /* Links */,
 				98DF03AE263B5074003A1257 /* Filters */,
 				98DF033B263AEC4C003A1257 /* Extensions */,
 				98DF030C263ADB33003A1257 /* Coordinator */,
@@ -695,6 +723,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				98DF01B6263AC298003A1257 /* LaunchScreen.storyboard in Resources */,
+				9829CA96263C3FEE00D7490C /* Localizable.strings in Resources */,
 				98DF01B3263AC298003A1257 /* Assets.xcassets in Resources */,
 				98DF01DD263AC2AB003A1257 /* Podfile in Resources */,
 			);
@@ -704,6 +733,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9829CA97263C3FEE00D7490C /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -793,12 +823,14 @@
 				98DF039F263B34DA003A1257 /* Calendar+Helpers.swift in Sources */,
 				98DF0345263AEDCF003A1257 /* String+Helpers.swift in Sources */,
 				98DF0395263B13A7003A1257 /* Rocket.swift in Sources */,
+				9829CA9F263C406500D7490C /* Localizations.swift in Sources */,
 				98DF031B263ADF06003A1257 /* DashboardTableViewDataSource.swift in Sources */,
 				98DF026B263AD1FB003A1257 /* Dependencies.swift in Sources */,
 				98DF020B263AC4BC003A1257 /* NetworkClient.swift in Sources */,
 				9812475B263BFD2C00917FAC /* OrderAscendingFilter.swift in Sources */,
 				98DF0308263ADAFC003A1257 /* Router.swift in Sources */,
 				9812474C263BFB1E00917FAC /* Date+Helpers.swift in Sources */,
+				9829CAD9263C532100D7490C /* LinkAlertProvider.swift in Sources */,
 				98DF038B263B1357003A1257 /* RocketEndpoint.swift in Sources */,
 				98DF0337263AEC44003A1257 /* UITableView+Helpers.swift in Sources */,
 				98DF0256263AD10D003A1257 /* CompanyEndpoint.swift in Sources */,
@@ -826,9 +858,11 @@
 				98DF024B263ACF53003A1257 /* EndpointRequestProviderTests.swift in Sources */,
 				98DF02D7263AD3EA003A1257 /* MockNetworkClient.swift in Sources */,
 				98DF0246263ACE14003A1257 /* EndpointTests.swift in Sources */,
+				9829CADA263C532100D7490C /* LinkAlertProvider.swift in Sources */,
 				98DF02EB263AD60C003A1257 /* CompanyServiceTests.swift in Sources */,
 				98DF02DF263AD4A9003A1257 /* MockCompanyService.swift in Sources */,
 				98DF0222263AC7E5003A1257 /* NetworkClientTests.swift in Sources */,
+				9829CAA0263C406500D7490C /* Localizations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -856,6 +890,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		9829CA99263C3FEE00D7490C /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9829CA98263C3FEE00D7490C /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		98DF01B4263AC298003A1257 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

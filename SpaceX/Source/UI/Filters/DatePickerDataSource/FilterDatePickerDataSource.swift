@@ -39,11 +39,11 @@ final class DatePickerDataSource: NSObject, DatePickerDataSourceProtocol {
     }
 
     var startText: String {
-        return NSLocalizedString("Start: ", comment: "") + currentMinimumDate.yearString
+        return L.Filters.start + currentMinimumDate.yearString
     }
 
     var endText: String {
-        return NSLocalizedString("End: ", comment: "") + currentMaximumDate.yearString
+        return L.Filters.end + currentMaximumDate.yearString
     }
 
     fileprivate let startPicker: UIPickerView = UIPickerView()

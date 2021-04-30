@@ -29,7 +29,7 @@ final class DurationFilter: Filter, StartEndDateItem {
     }
 
     var title: String {
-        return NSLocalizedString("Duration", comment: "")
+        return L.Filters.duration
     }
 
     func validate(launch: Launch) -> Bool {

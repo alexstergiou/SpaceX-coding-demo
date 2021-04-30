@@ -21,7 +21,7 @@ final class LaunchSuccessFilter: Filter, BooleanItem {
     }
 
     var title: String {
-        return NSLocalizedString("Show only successful", comment: "")
+        return L.Filters.showSuccess
     }
 
     func validate(launch: Launch) -> Bool {

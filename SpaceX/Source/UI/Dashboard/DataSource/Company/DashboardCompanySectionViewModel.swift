@@ -13,9 +13,9 @@ protocol DashboardCompanySectionViewModelProtocol: DashboardSection {
     func update(with company: Company)
 }
 
-final class DashboardCompanySectionViewModel: DashboardCompanySectionViewModelProtocol {
+final class DashboardCompanySectionViewModel: DashboardSection {
 
-    let title: String = NSLocalizedString("Company", comment: "")
+    let title: String = L.Dashboard.Company.title
     let type: DashboardSectionType = .company
     var items: [DashboardItem] = []
 

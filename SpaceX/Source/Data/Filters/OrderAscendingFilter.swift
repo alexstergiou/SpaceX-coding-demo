@@ -16,7 +16,7 @@ final class OrderAscendingFilter: Filter, BooleanItem {
     }
 
     var title: String {
-        return NSLocalizedString("Ascending", comment: "")
+        return L.Filters.ascending
     }
 
     func validate(launch: Launch) -> Bool {

@@ -32,7 +32,7 @@ final class CompanyTableViewCell: UITableViewCell {
             return
         }
         let currencyCode: String = companyItem.numberFormatter.locale.currencyCode ?? ""
-        let value: String = NSLocalizedString("%@ was founded by %@ in %d. It has now %d employees, %d launch sites, and is valued at %@ %@", comment: "").format(companyItem.name, companyItem.founder, companyItem.foundedYear, companyItem.employees, companyItem.launchSites, currencyCode, companyItem.valuationFormattedString)
+        let value: String = L.Dashboard.Company.description.format(companyItem.name, companyItem.founder, companyItem.foundedYear, companyItem.employees, companyItem.launchSites, currencyCode, companyItem.valuationFormattedString)
         titleLabel.text = value
     }
 }
