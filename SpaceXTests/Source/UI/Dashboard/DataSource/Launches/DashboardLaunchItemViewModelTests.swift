@@ -35,7 +35,7 @@ final class DashboardLaunchItemViewModelTests: XCTestCase {
 
     func testProperties() {
         XCTAssertEqual(subject.name, "name")
-        XCTAssertEqual(subject.date.timeIntervalSince1970, 100)
+        XCTAssertEqual(subject.date.interval, 100)
 
         XCTAssertNil(subject.rocketDescription)
         launch.rocket = Rocket(name: "rocket name", type: "type", description: "desc")
@@ -43,7 +43,7 @@ final class DashboardLaunchItemViewModelTests: XCTestCase {
 
         var days: Double = 3
         var interval: TimeInterval = 24 * 60 * 60 * days
-        launch = mockLaunch(timestamp: Date().timeIntervalSince1970 - interval)
+        launch = mockLaunch(timestamp: Date().interval - interval)
 
         subject = DashboardLaunchItemViewModel(launch: launch,
                                                imageService: dependenciesHelper.mockImageService,
@@ -55,7 +55,7 @@ final class DashboardLaunchItemViewModelTests: XCTestCase {
 
         days = -3
         interval = 24 * 60 * 60 * days
-        launch = mockLaunch(timestamp: Date().timeIntervalSince1970 - interval)
+        launch = mockLaunch(timestamp: Date().interval - interval)
 
         subject = DashboardLaunchItemViewModel(launch: launch,
                                                imageService: dependenciesHelper.mockImageService,

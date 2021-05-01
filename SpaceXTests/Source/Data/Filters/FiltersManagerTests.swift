@@ -156,8 +156,8 @@ final class TestFilterGroup {
     let orderFilter: OrderAscendingFilter = OrderAscendingFilter()
 
     init(start: TimeInterval, end: TimeInterval, success: Bool, ascending: Bool) {
-        durationFilter.startDate = Date(timeIntervalSince1970: start)
-        durationFilter.endDate = Date(timeIntervalSince1970: end)
+        durationFilter.startDate = start.date
+        durationFilter.endDate = end.date
         launchSuccessFilter.value = success
         orderFilter.value = ascending
     }

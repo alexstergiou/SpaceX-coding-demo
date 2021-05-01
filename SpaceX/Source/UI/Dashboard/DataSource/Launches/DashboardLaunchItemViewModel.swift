@@ -52,7 +52,7 @@ final class DashboardLaunchItemViewModel: DashboardLaunchItemViewModelProtocol {
     }
 
     var date: Date {
-        return Date(timeIntervalSince1970: launch.timestamp)
+        return launch.timestamp.date
     }
 
     var rocketDescription: String? {

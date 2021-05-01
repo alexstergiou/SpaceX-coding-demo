@@ -47,7 +47,7 @@ extension DurationFilterTests {
 
     func testLaunch(date: Date) -> Launch {
         return Launch(name: "name",
-                      timestamp: date.timeIntervalSince1970,
+                      timestamp: date.interval,
                       links: Links(patch: nil,
                                    webcast: "https://www.spacex.com",
                                    article: "https://www.spacex.com",

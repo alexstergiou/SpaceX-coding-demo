@@ -665,10 +665,10 @@
 		98DF0232263ACB7D003A1257 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				98DF0389263B133F003A1257 /* Rocket */,
-				98DF037B263B0496003A1257 /* Images */,
 				98DF0254263AD0FE003A1257 /* Company */,
+				98DF037B263B0496003A1257 /* Images */,
 				98DF0355263AF36D003A1257 /* Launches */,
+				98DF0389263B133F003A1257 /* Rocket */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -803,9 +803,9 @@
 		98DF0355263AF36D003A1257 /* Launches */ = {
 			isa = PBXGroup;
 			children = (
-				98DF0356263AF389003A1257 /* LaunchesService.swift */,
 				98DF035B263AF3C4003A1257 /* Launch.swift */,
 				98DF0360263AF4E8003A1257 /* LaunchesEndpoint.swift */,
+				98DF0356263AF389003A1257 /* LaunchesService.swift */,
 			);
 			path = Launches;
 			sourceTree = "<group>";
@@ -824,8 +824,8 @@
 		98DF037B263B0496003A1257 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				98DF037F263B05AF003A1257 /* ImageService.swift */,
 				98DF0384263B05E0003A1257 /* ImageCache.swift */,
+				98DF037F263B05AF003A1257 /* ImageService.swift */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -833,9 +833,9 @@
 		98DF0389263B133F003A1257 /* Rocket */ = {
 			isa = PBXGroup;
 			children = (
+				98DF0394263B13A7003A1257 /* Rocket.swift */,
 				98DF038A263B1357003A1257 /* RocketEndpoint.swift */,
 				98DF038F263B139D003A1257 /* RocketService.swift */,
-				98DF0394263B13A7003A1257 /* Rocket.swift */,
 			);
 			path = Rocket;
 			sourceTree = "<group>";
@@ -843,9 +843,9 @@
 		98DF03A3263B46CA003A1257 /* Filters */ = {
 			isa = PBXGroup;
 			children = (
-				98DF03A4263B4763003A1257 /* FiltersManager.swift */,
-				98DF03A9263B47AD003A1257 /* Filter.swift */,
 				98124750263BFD0400917FAC /* DurationFilter.swift */,
+				98DF03A9263B47AD003A1257 /* Filter.swift */,
+				98DF03A4263B4763003A1257 /* FiltersManager.swift */,
 				98124755263BFD1800917FAC /* LaunchSuccessFilter.swift */,
 				9812475A263BFD2C00917FAC /* OrderAscendingFilter.swift */,
 			);

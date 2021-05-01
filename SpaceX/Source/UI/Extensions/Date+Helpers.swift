@@ -14,9 +14,9 @@ enum DateFormat: String {
 
 extension Date {
     func isBetween(startDate: Date, endDate: Date) -> Bool {
-        let interval: TimeInterval = self.timeIntervalSince1970
+        let interval: TimeInterval = self.interval
 
-        return startDate.timeIntervalSince1970 <= interval && interval <= endDate.timeIntervalSince1970
+        return startDate.interval <= interval && interval <= endDate.interval
     }
 
     func rangeOfYears(for date: Date) -> Int {
@@ -43,5 +43,15 @@ extension Date {
 
     func byAdding(years: Int) -> Date {
         return Date.with(year: year + years)
+    }
+
+    var interval: TimeInterval {
+        return timeIntervalSince1970
+    }
+}
+
+extension TimeInterval {
+    var date: Date {
+        return Date(timeIntervalSince1970: self)
     }
 }

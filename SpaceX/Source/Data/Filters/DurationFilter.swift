@@ -33,7 +33,7 @@ final class DurationFilter: Filter, StartEndDateItem {
     }
 
     func validate(launch: Launch) -> Bool {
-        guard startDate.timeIntervalSince1970 <= endDate.timeIntervalSince1970 else { return false }
+        guard startDate.interval <= endDate.interval else { return false }
         return launch.date.isBetween(startDate: startDate, endDate: endDate.byAdding(years: 1))
     }
 
@@ -42,11 +42,11 @@ final class DurationFilter: Filter, StartEndDateItem {
 
         let sortedLaunches: [Launch] = launches.sorted { $0.timestamp < $1.timestamp }
         if let first = sortedLaunches.first {
-            startDate = Date(timeIntervalSince1970: first.timestamp)
+            startDate = first.timestamp.date
             minimumDate = startDate
         }
         if let last = sortedLaunches.last {
-            endDate = Date(timeIntervalSince1970: last.timestamp)
+            endDate = last.timestamp.date
             maximumDate = endDate
         }
         didInitialSetup = true

@@ -34,7 +34,7 @@ final class Launch: Codable {
 
 extension Launch {
     var date: Date {
-        return Date(timeIntervalSince1970: timestamp)
+        return timestamp.date
     }
 }
 
