@@ -43,7 +43,7 @@ final class LaunchTableViewCell: UITableViewCell {
 
         view.axis = .vertical
         view.distribution = .fillEqually
-        view.spacing = 8.0
+        view.spacing = CGFloat.xs
 
         return view
     }()
@@ -66,10 +66,9 @@ final class LaunchTableViewCell: UITableViewCell {
     }
 
     func update(with item: DashboardItem) {
-        viewModel?.cancel()
-
         guard let viewModel = item as? DashboardLaunchItemViewModelProtocol else { return }
         self.viewModel = viewModel
+        viewModel.cancel()
 
         updateImage()
         updateRocketValue()
@@ -119,7 +118,7 @@ fileprivate extension LaunchTableViewCell {
 
     func set(image: UIImage?) {
         patchImageView.image = image
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: TimeInterval.animationDuration) {
             self.patchImageView.alpha = 1.0
         }
     }
@@ -139,21 +138,21 @@ fileprivate extension LaunchTableViewCell {
 
     func initializeConstraints() {
         patchImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(48.0)
-            make.leading.equalToSuperview().offset(8.0)
-            make.top.equalToSuperview().inset(16.0)
+            make.width.height.equalTo(CGFloat.xxl)
+            make.leading.equalToSuperview().offset(CGFloat.xs)
+            make.top.equalToSuperview().inset(CGFloat.m)
         }
 
         stackView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(16.0)
-            make.trailing.equalTo(outcomeImageView.snp.leading).offset(-8.0)
-            make.leading.equalTo(patchImageView.snp.trailing).offset(8.0).priority(.high)
+            make.top.bottom.equalToSuperview().inset(CGFloat.m)
+            make.trailing.equalTo(outcomeImageView.snp.leading).offset(-CGFloat.xs)
+            make.leading.equalTo(patchImageView.snp.trailing).offset(CGFloat.xs).priority(.high)
         }
 
         outcomeImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(32.0)
+            make.width.height.equalTo(CGFloat.xl)
             make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-8.0)
+            make.trailing.equalToSuperview().offset(-CGFloat.xs)
         }
     }
 }

@@ -7,7 +7,24 @@
 
 import UIKit
 
-final class LinkAlertProvider {
+protocol Application: AnyObject {
+    func canOpenURL(_ url: URL) -> Bool
+    func open(_ url: URL, options: [UIApplication.OpenExternalURLOptionsKey : Any], completionHandler completion: ((Bool) -> Void)?)
+}
+
+extension UIApplication: Application {}
+
+protocol LinkAlertProviderProtocol {
+    func alertController(for item: DashboardItem) -> UIAlertController?
+    func open(url: URL?)
+}
+
+final class LinkAlertProvider: LinkAlertProviderProtocol {
+    let application: Application
+    init(application: Application = UIApplication.shared) {
+        self.application = application
+    }
+
     func alertController(for item: DashboardItem) -> UIAlertController? {
         guard let launchItem = item as? LaunchItem else { return nil }
 
@@ -48,7 +65,7 @@ final class LinkAlertProvider {
 
     func open(url: URL?) {
         guard let url = url else { return }
-        guard UIApplication.shared.canOpenURL(url) else { return }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        guard application.canOpenURL(url) else { return }
+        application.open(url, options: [:], completionHandler: nil)
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 typealias RocketDetailsCompletion = (_ result: Result<Rocket, Error>) -> Void
 
 protocol RocketServiceProtocol {
-    func fetchRocketDetails(with rocketIdentifier: String, completion: RocketDetailsCompletion?) -> URLSessionDataTaskProtocol?
+    @discardableResult func fetchRocketDetails(with rocketIdentifier: String, completion: RocketDetailsCompletion?) -> URLSessionDataTaskProtocol?
 }
 
 final class RocketService: RocketServiceProtocol {
@@ -20,7 +20,7 @@ final class RocketService: RocketServiceProtocol {
         self.client = client
     }
 
-    func fetchRocketDetails(with rocketIdentifier: String, completion: RocketDetailsCompletion?) -> URLSessionDataTaskProtocol? {
+    @discardableResult func fetchRocketDetails(with rocketIdentifier: String, completion: RocketDetailsCompletion?) -> URLSessionDataTaskProtocol? {
         let endpoint: RocketEndpoint = .details(rocketIdentifier)
         guard let request = endpoint.request else {
             completion?(Result.failure(ServiceError.invalidRequest))

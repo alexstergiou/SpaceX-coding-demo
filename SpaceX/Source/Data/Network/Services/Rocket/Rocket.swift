@@ -17,4 +17,12 @@ struct Rocket: Codable {
         case type
         case description
     }
+
+    init(name: String,
+         type: String,
+         description: String) {
+        self.name = name
+        self.type = type
+        self.description = description
+    }
 }

@@ -13,7 +13,10 @@ final class MockCompanyService: CompanyServiceProtocol {
     var company: Company?
     var error: Error = TestError.test
 
+    var fetchCompanyInfoCalled: Bool = false
     func fetchCompanyInfo(completion: CompanyServiceCompletion?) {
+        fetchCompanyInfoCalled = true
+
         if let company = company {
             completion?(Result.success(company))
         } else {

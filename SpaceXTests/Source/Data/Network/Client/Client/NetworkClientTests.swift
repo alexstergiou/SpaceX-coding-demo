@@ -43,7 +43,7 @@ final class NetworkClientTests: XCTestCase {
             promise.fulfill()
         }
 
-        waitForExpectations(timeout: 0.5, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
 
     func testDataTaskWithSuccess() {
@@ -64,7 +64,7 @@ final class NetworkClientTests: XCTestCase {
             promise.fulfill()
         }
 
-        waitForExpectations(timeout: 0.5, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
 
     func testRequest() -> URLRequest {

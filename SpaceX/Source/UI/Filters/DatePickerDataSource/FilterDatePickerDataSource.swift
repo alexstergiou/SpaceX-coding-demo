@@ -46,8 +46,8 @@ final class DatePickerDataSource: NSObject, DatePickerDataSourceProtocol {
         return L.Filters.end + currentMaximumDate.yearString
     }
 
-    fileprivate let startPicker: UIPickerView = UIPickerView()
-    fileprivate let endPicker: UIPickerView = UIPickerView()
+    internal let startPicker: UIPickerView = UIPickerView()
+    internal let endPicker: UIPickerView = UIPickerView()
 
     weak var startTextField: UITextField?
     weak var endTextField: UITextField?

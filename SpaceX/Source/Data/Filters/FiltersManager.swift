@@ -20,15 +20,17 @@ protocol FiltersManagerProtocol: AnyObject {
     func remove(responder: FilterOperationsResponder)
 
     func filtersUpdated()
-    func saveFilters() -> Bool
+    @discardableResult func saveFilters() -> Bool
 }
 
 final class FiltersManager: FiltersManagerProtocol {
     fileprivate(set) var filters: [Filter] = []
 
     fileprivate(set) var responders = NSHashTable<FilterOperationsResponder>.weakObjects()
+    let defaults: DefaultsType
 
-    init() {
+    init(defaults: DefaultsType) {
+        self.defaults = defaults
         self.filters = loadFilters()
     }
 
@@ -61,14 +63,10 @@ final class FiltersManager: FiltersManagerProtocol {
         responders.allObjects.forEach { responder in
             responder.didUpdateFilters?()
         }
-        if saveFilters() == false {
-            print("save filters failed")
-        } else {
-            print("saved filters")
-        }
+        saveFilters()
     }
     
-    func saveFilters() -> Bool {
+    @discardableResult func saveFilters() -> Bool {
         for filter in filters {
             var value: Bool = true
             switch filter.type {
@@ -116,18 +114,24 @@ extension FiltersManager {
     }
 
     var storedDurationFilter: DurationFilter? {
-        guard let data = UserDefaults.standard.data(forKey: FilterType.duration.rawValue) else { return nil }
-        return try? JSONDecoder().decode(DurationFilter.self, from: data)
+        guard let data = defaults.data(FilterType.duration.key) else { return nil }
+        print(String(data: data, encoding: .utf8) ?? "cannot create string")
+        let filter = try? JSONDecoder().decode(DurationFilter.self, from: data)
+        return filter
     }
 
     var storedLaunchSuccessFilter: LaunchSuccessFilter? {
-        guard let data = UserDefaults.standard.data(forKey: FilterType.launchSuccess.rawValue) else { return nil }
-        return try? JSONDecoder().decode(LaunchSuccessFilter.self, from: data)
+        guard let data = defaults.data(FilterType.launchSuccess.key) else { return nil }
+        print(String(data: data, encoding: .utf8) ?? "cannot create string")
+        let filter = try? JSONDecoder().decode(LaunchSuccessFilter.self, from: data)
+        return filter
     }
 
     var storedOrderAscendingFilter: OrderAscendingFilter? {
-        guard let data = UserDefaults.standard.data(forKey: FilterType.orderAscending.rawValue) else { return nil }
-        return try? JSONDecoder().decode(OrderAscendingFilter.self, from: data)
+        guard let data = defaults.data(FilterType.orderAscending.key) else { return nil }
+        print(String(data: data, encoding: .utf8) ?? "cannot create string")
+        let filter = try? JSONDecoder().decode(OrderAscendingFilter.self, from: data)
+        return filter
     }
 
     func loadStoredFilters() -> [Filter]? {
@@ -157,7 +161,7 @@ extension FiltersManager {
 
         do {
             let data = try JSONEncoder().encode(item)
-            UserDefaults.standard.setValue(data, forKey: filter.type.rawValue)
+            defaults[filter.type.key] = data
             return true
         } catch {
             return false
@@ -171,7 +175,7 @@ extension FiltersManager {
 
         do {
             let data = try JSONEncoder().encode(item)
-            UserDefaults.standard.setValue(data, forKey: filter.type.rawValue)
+            defaults[filter.type.key] = data
             return true
         } catch {
             return false
@@ -185,7 +189,7 @@ extension FiltersManager {
 
         do {
             let data = try JSONEncoder().encode(item)
-            UserDefaults.standard.setValue(data, forKey: filter.type.rawValue)
+            defaults[filter.type.key] = data
             return true
         } catch {
             return false

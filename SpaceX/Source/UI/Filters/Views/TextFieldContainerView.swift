@@ -43,7 +43,7 @@ extension TextFieldContainerView {
 
     func initializeConstraints() {
         textField.snp.makeConstraints { make in
-            make.top.leading.trailing.bottom.equalToSuperview().inset(16.0)
+            make.top.leading.trailing.bottom.equalToSuperview().inset(CGFloat.m)
         }
     }
 }

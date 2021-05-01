@@ -81,7 +81,7 @@ final class DashboardLaunchItemViewModel: DashboardLaunchItemViewModelProtocol {
 
     var outcomeImageColor: UIColor? {
         guard let success = launch.success else { return nil }
-        return success ? UIColor.green : UIColor.red
+        return success ? UIColor.success : UIColor.failure
     }
 
     var imageURL: URL? {

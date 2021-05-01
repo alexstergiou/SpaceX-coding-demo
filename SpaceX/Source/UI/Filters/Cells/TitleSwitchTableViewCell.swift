@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 protocol TitleSwitchTableViewCellResponder: AnyObject {
-    func valueChanged(in item: BooleanItem?)
+    func valueChanged()
 }
 
 final class TitleSwitchTableViewCell: UITableViewCell {
@@ -55,20 +55,20 @@ extension TitleSwitchTableViewCell {
 
     func initializeConstraints() {
         valueSwitch.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-8.0)
+            make.trailing.equalToSuperview().offset(-CGFloat.s)
             make.centerY.equalToSuperview()
-            make.top.bottom.equalToSuperview().inset(16.0)
+            make.top.bottom.equalToSuperview().inset(CGFloat.m)
         }
 
         titleLabel.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
-            make.leading.equalToSuperview().offset(8.0)
-            make.trailing.equalTo(valueSwitch.snp.leading).offset(-8.0)
+            make.leading.equalToSuperview().offset(CGFloat.s)
+            make.trailing.equalTo(valueSwitch.snp.leading).offset(-CGFloat.s)
         }
     }
 
     @objc func valueChanged() {
         item?.value.toggle()
-        responder?.valueChanged(in: item)
+        responder?.valueChanged()
     }
 }

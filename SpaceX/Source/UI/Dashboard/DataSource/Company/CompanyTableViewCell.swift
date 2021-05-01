@@ -11,7 +11,6 @@ import SnapKit
 final class CompanyTableViewCell: UITableViewCell {
     lazy var titleLabel: UILabel = {
         let label: UILabel = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18.0)
         label.numberOfLines = 0
         return label
     }()
@@ -46,7 +45,7 @@ fileprivate extension CompanyTableViewCell {
 
     func initializeConstraints() {
         titleLabel.snp.makeConstraints { make in
-            make.top.leading.trailing.bottom.equalToSuperview().inset(16.0)
+            make.top.leading.trailing.bottom.equalToSuperview().inset(CGFloat.m)
         }
     }
 }

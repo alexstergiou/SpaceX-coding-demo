@@ -1,22 +1,22 @@
 //
-//  CompanyServiceTests.swift
+//  RocketServiceTests.swift
 //  SpaceXTests
 //
-//  Created by Alex Stergiou on 29/04/2021.
+//  Created by Alex Stergiou on 30/04/2021.
 //
 
 import XCTest
 
 @testable import SpaceX
 
-final class CompanyServiceTests: XCTestCase {
+final class RocketServiceTests: XCTestCase {
 
-    var subject: CompanyService!
+    var subject: RocketService!
     var mockClient: MockNetworkClient!
 
     override func setUpWithError() throws {
         mockClient = MockNetworkClient()
-        subject = CompanyService(client: mockClient)
+        subject = RocketService(client: mockClient)
     }
 
     override func tearDownWithError() throws {
@@ -24,12 +24,12 @@ final class CompanyServiceTests: XCTestCase {
         mockClient = nil
     }
 
-    func testCompanyInfoFailure() {
+    func testRocketInfoFailure() {
         mockClient.result = Result.failure(TestError.test)
 
-        let promise = expectation(description: "testCompanyInfoFailure")
+        let promise = expectation(description: "testRocketInfoFailure")
 
-        subject.fetchCompanyInfo { result in
+        subject.fetchRocketDetails(with: "id") { result in
             switch result {
             case .success:
                 XCTFail()
@@ -43,15 +43,15 @@ final class CompanyServiceTests: XCTestCase {
             promise.fulfill()
         }
 
-        waitForExpectations(timeout: 0.5, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
 
-    func testCompanyInfoDecodingFailure() {
+    func testRocketInfoDecodingFailure() {
         mockClient.result = Result.success(Data())
 
-        let promise = expectation(description: "testCompanyInfoDecodingFailure")
+        let promise = expectation(description: "testRocketInfoDecodingFailure")
 
-        subject.fetchCompanyInfo { result in
+        subject.fetchRocketDetails(with: "id") { result in
             switch result {
             case .success:
                 XCTFail()
@@ -64,15 +64,15 @@ final class CompanyServiceTests: XCTestCase {
             promise.fulfill()
         }
 
-        waitForExpectations(timeout: 0.5, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
 
-    func testCompanyInfoSuccess() {
-        mockClient.result = Result.success(self.mockCompanyData)
+    func testRocketInfoSuccess() {
+        mockClient.result = Result.success(self.mockRocketData)
 
-        let promise = expectation(description: "testCompanyInfoSuccess")
+        let promise = expectation(description: "testRocketInfoSuccess")
 
-        subject.fetchCompanyInfo { result in
+        subject.fetchRocketDetails(with: "id") { result in
             switch result {
             case .success:
                 break
@@ -82,22 +82,19 @@ final class CompanyServiceTests: XCTestCase {
             promise.fulfill()
         }
 
-        waitForExpectations(timeout: 0.5, handler: nil)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
 }
 
-extension CompanyServiceTests {
-    var mockCompanyData: Data {
+extension RocketServiceTests {
+    var mockRocketData: Data {
         let encoder: JSONEncoder = JSONEncoder()
-        return try! encoder.encode(self.mockCompany)
+        return try! encoder.encode(mockRocket)
     }
-    
-    var mockCompany: Company {
-        return Company(name: "name",
-                       founder: "founder",
-                       foundedYear: 2020,
-                       employees: 10,
-                       launchSites: 20,
-                       valuation: 2000)
+
+    var mockRocket: Rocket {
+        return Rocket(name: "RocketName",
+                      type: "RocketType",
+                      description: "RocketDesc")
     }
 }

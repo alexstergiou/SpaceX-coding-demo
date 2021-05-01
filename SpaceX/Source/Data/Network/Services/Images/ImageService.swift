@@ -10,7 +10,7 @@ import UIKit
 typealias ImageServiceCompletion = (_ result: Result<UIImage, Error>) -> Void
 
 protocol ImageServiceProtocol {
-    func fetchImage(url: URL?, completion: ImageServiceCompletion?) -> URLSessionDataTaskProtocol?
+    @discardableResult func fetchImage(url: URL?, completion: ImageServiceCompletion?) -> URLSessionDataTaskProtocol?
 }
 
 final class ImageService: ImageServiceProtocol {
@@ -22,7 +22,7 @@ final class ImageService: ImageServiceProtocol {
         self.cache = cache
     }
 
-    func fetchImage(url: URL?, completion: ImageServiceCompletion?) -> URLSessionDataTaskProtocol? {
+    @discardableResult func fetchImage(url: URL?, completion: ImageServiceCompletion?) -> URLSessionDataTaskProtocol? {
         guard let url = url else {
             completion?(Result.failure(ServiceError.invalidURL))
             return nil

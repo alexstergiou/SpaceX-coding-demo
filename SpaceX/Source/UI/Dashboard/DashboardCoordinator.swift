@@ -12,11 +12,11 @@ final class DashboardCoordinator: Coordinator {
     let router: Routable
     var children: [Coordinator] = []
     let dependencies: Dependencies
-    let linkAlertProvider: LinkAlertProvider
+    let linkAlertProvider: LinkAlertProviderProtocol
 
     init(router: Routable,
          dependencies: Dependencies,
-         linkAlertProvider: LinkAlertProvider = LinkAlertProvider()) {
+         linkAlertProvider: LinkAlertProviderProtocol = LinkAlertProvider()) {
         self.router = router
         self.dependencies = dependencies
         self.linkAlertProvider = linkAlertProvider

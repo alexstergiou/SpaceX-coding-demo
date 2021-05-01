@@ -11,6 +11,10 @@ enum FilterType: String, Codable {
     case duration
     case launchSuccess
     case orderAscending
+
+    var key: DefaultsKey<Data> {
+        return DefaultsKey(rawValue)
+    }
 }
 
 protocol Filter: AnyObject, Codable {

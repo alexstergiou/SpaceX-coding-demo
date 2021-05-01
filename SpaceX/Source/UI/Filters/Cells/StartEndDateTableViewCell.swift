@@ -68,13 +68,13 @@ extension StartEndDateTableViewCell {
 
     func initializeConstraints() {
         titleLabel.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview().inset(8.0)
+            make.top.leading.trailing.equalToSuperview().inset(CGFloat.s)
         }
 
         stackView.snp.makeConstraints { make in
-            make.bottom.leading.trailing.equalToSuperview().inset(8.0)
-            make.top.equalTo(titleLabel.snp.bottom).offset(8.0)
-            make.height.equalTo(60.0)
+            make.bottom.leading.trailing.equalToSuperview().inset(CGFloat.s)
+            make.top.equalTo(titleLabel.snp.bottom).offset(CGFloat.s)
+            make.height.equalTo(CGFloat.xxxl)
         }
     }
 }

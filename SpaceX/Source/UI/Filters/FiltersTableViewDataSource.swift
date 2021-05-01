@@ -89,7 +89,7 @@ extension FiltersTableViewDataSource {
 }
 
 extension FiltersTableViewDataSource: TitleSwitchTableViewCellResponder {
-    func valueChanged(in item: BooleanItem?) {
+    func valueChanged() {
         responder?.filtersChanged()
     }
 }

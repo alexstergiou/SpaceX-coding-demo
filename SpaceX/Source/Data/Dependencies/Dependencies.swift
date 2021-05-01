@@ -10,10 +10,14 @@ import Foundation
 final class Dependencies {
     let services: Services
     let filtersManager: FiltersManagerProtocol
+    let defaults: DefaultsType
 
-    init(services: Services, filtersManager: FiltersManagerProtocol) {
+    init(services: Services,
+         filtersManager: FiltersManagerProtocol,
+         defaults: DefaultsType) {
         self.services = services
         self.filtersManager = filtersManager
+        self.defaults = defaults
     }
 }
 
@@ -27,7 +31,7 @@ final class Services {
     init(client: NetworkClientProtocol,
          companyService: CompanyServiceProtocol,
          launchesService: LaunchesServiceProtocol,
-         imageService: ImageService,
+         imageService: ImageServiceProtocol,
          rocketService: RocketServiceProtocol) {
         self.client = client
         self.companyService = companyService
@@ -45,14 +49,17 @@ extension Dependencies {
         let imageCache: ImageCache = ImageCache()
         let imageService: ImageService = ImageService(client: client, cache: imageCache)
         let rocketService: RocketService = RocketService(client: client)
-        let filtersManager: FiltersManager = FiltersManager()
+        let defaults: DefaultsType = UserDefaults.standard
+        let filtersManager: FiltersManager = FiltersManager(defaults: defaults)
 
         let services: Services = Services(client: client,
                                           companyService: companyService,
                                           launchesService: launchesService,
                                           imageService: imageService,
                                           rocketService: rocketService)
+
         return Dependencies(services: services,
-                            filtersManager: filtersManager)
+                            filtersManager: filtersManager,
+                            defaults: defaults)
     }
 }
