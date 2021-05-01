@@ -115,21 +115,18 @@ extension FiltersManager {
 
     var storedDurationFilter: DurationFilter? {
         guard let data = defaults.data(FilterType.duration.key) else { return nil }
-        print(String(data: data, encoding: .utf8) ?? "cannot create string")
         let filter = try? JSONDecoder().decode(DurationFilter.self, from: data)
         return filter
     }
 
     var storedLaunchSuccessFilter: LaunchSuccessFilter? {
         guard let data = defaults.data(FilterType.launchSuccess.key) else { return nil }
-        print(String(data: data, encoding: .utf8) ?? "cannot create string")
         let filter = try? JSONDecoder().decode(LaunchSuccessFilter.self, from: data)
         return filter
     }
 
     var storedOrderAscendingFilter: OrderAscendingFilter? {
         guard let data = defaults.data(FilterType.orderAscending.key) else { return nil }
-        print(String(data: data, encoding: .utf8) ?? "cannot create string")
         let filter = try? JSONDecoder().decode(OrderAscendingFilter.self, from: data)
         return filter
     }
@@ -137,7 +134,6 @@ extension FiltersManager {
     func loadStoredFilters() -> [Filter]? {
         let filters = defaultFilterTypes.compactMap { storedFilter(with: $0) }
         guard filters.count == expectedFiltersCount else {
-            print("expected filters not found")
             return nil
         }
         return filters

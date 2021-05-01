@@ -32,11 +32,6 @@ final class DurationFilter: Filter, StartEndDateItem {
         return L.Filters.duration
     }
 
-    func validate(launch: Launch) -> Bool {
-        guard startDate.interval <= endDate.interval else { return false }
-        return launch.date.isBetween(startDate: startDate, endDate: endDate.byAdding(years: 1))
-    }
-
     func update(launches: [Launch]) {
         if didInitialSetup == true { return }
 
@@ -50,6 +45,11 @@ final class DurationFilter: Filter, StartEndDateItem {
             maximumDate = endDate
         }
         didInitialSetup = true
+    }
+
+    func validate(launch: Launch) -> Bool {
+        guard startDate.interval <= endDate.interval else { return false }
+        return launch.date.isBetween(startDate: startDate, endDate: endDate.byAdding(years: 1))
     }
 
     func validate(launches: [Launch]) -> [Launch] {
