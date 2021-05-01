@@ -49,7 +49,7 @@ extension Dependencies {
         let imageCache: ImageCache = ImageCache()
         let imageService: ImageService = ImageService(client: client, cache: imageCache)
         let rocketService: RocketService = RocketService(client: client)
-        let defaults: DefaultsType = UserDefaults.standard
+        let defaults: DefaultsType = Defaults
         let filtersManager: FiltersManager = FiltersManager(defaults: defaults)
 
         let services: Services = Services(client: client,
