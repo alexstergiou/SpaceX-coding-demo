@@ -19,6 +19,11 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
         return true
     }
+
+    //Needed here because xcode's launch screen bug that displays it in landscape.
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        return [.allButUpsideDown]
+    }
 }
 
 extension AppDelegate {

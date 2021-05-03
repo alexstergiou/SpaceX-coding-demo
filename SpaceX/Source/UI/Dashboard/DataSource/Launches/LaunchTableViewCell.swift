@@ -130,7 +130,7 @@ fileprivate extension LaunchTableViewCell {
     func updateValueViews(viewModel: DashboardLaunchItemViewModelProtocol) {
         missionValueView.update(value: viewModel.name)
         dateValueView.update(value: viewModel.formattedLaunchDate)
-        daysValueView.update(key: viewModel.daysSinceLaunchTitle, value: "\(abs(viewModel.daysSinceLaunch))")
+        daysValueView.update(key: viewModel.daysSinceLaunchTitle, value: "\(viewModel.daysSinceLaunch)")
     }
 
     func updateOutcomeImageView(viewModel: DashboardLaunchItemViewModelProtocol) {
@@ -159,6 +159,7 @@ fileprivate extension LaunchTableViewCell {
             case .failure:
                 self.set(image: UIImage(named: "logo"))
             }
+            self.imageCompletion = nil
         }
 
         viewModel?.fetchImage(completion: imageCompletion)
@@ -176,6 +177,7 @@ fileprivate extension LaunchTableViewCell {
             case .failure:
                 break
             }
+            self.detailsCompletion = nil
         }
         viewModel?.fetchDetails(completion: detailsCompletion)
     }

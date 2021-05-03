@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		31321C3E62868ACE39A8110D /* Pods_SpaceX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650E462A8C0314CCB3DE9266 /* Pods_SpaceX.framework */; };
+		98041F2B26407964000D319A /* Launch.png in Resources */ = {isa = PBXBuildFile; fileRef = 98041F2A26407964000D319A /* Launch.png */; };
 		98124747263BFA4300917FAC /* FilterDatePickerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98124746263BFA4300917FAC /* FilterDatePickerDataSource.swift */; };
 		9812474C263BFB1E00917FAC /* Date+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9812474B263BFB1E00917FAC /* Date+Helpers.swift */; };
 		98124751263BFD0400917FAC /* DurationFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98124750263BFD0400917FAC /* DurationFilter.swift */; };
@@ -139,6 +140,7 @@
 
 /* Begin PBXFileReference section */
 		650E462A8C0314CCB3DE9266 /* Pods_SpaceX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpaceX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		98041F2A26407964000D319A /* Launch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Launch.png; sourceTree = "<group>"; };
 		98124746263BFA4300917FAC /* FilterDatePickerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDatePickerDataSource.swift; sourceTree = "<group>"; };
 		9812474B263BFB1E00917FAC /* Date+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Helpers.swift"; sourceTree = "<group>"; };
 		98124750263BFD0400917FAC /* DurationFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationFilter.swift; sourceTree = "<group>"; };
@@ -540,6 +542,7 @@
 				98DF01B2263AC298003A1257 /* Assets.xcassets */,
 				98DF01B7263AC298003A1257 /* Info.plist */,
 				98DF01B4263AC298003A1257 /* LaunchScreen.storyboard */,
+				98041F2A26407964000D319A /* Launch.png */,
 				9829CA99263C3FEE00D7490C /* Localizable.strings */,
 			);
 			path = SpaceX;
@@ -1009,6 +1012,7 @@
 				9829CA96263C3FEE00D7490C /* Localizable.strings in Resources */,
 				98DF01B3263AC298003A1257 /* Assets.xcassets in Resources */,
 				98DF01DD263AC2AB003A1257 /* Podfile in Resources */,
+				98041F2B26407964000D319A /* Launch.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
