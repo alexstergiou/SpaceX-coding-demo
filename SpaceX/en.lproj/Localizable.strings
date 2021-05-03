@@ -26,6 +26,6 @@
 
 "start" = "Start: ";
 "end" = "End: ";
-"ascending" = "Ascending";
+"ascending" = "Order ascending";
 "showSuccess" = "Show only successful launches";
 "duration" = "Duration";

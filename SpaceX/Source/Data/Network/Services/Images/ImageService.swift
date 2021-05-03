@@ -7,7 +7,7 @@
 
 import UIKit
 
-typealias ImageServiceCompletion = (_ result: Result<UIImage, Error>) -> Void
+typealias ImageServiceCompletion = ( _ result: Result<ImageResponse?, Error>) -> Void
 
 protocol ImageServiceProtocol {
     @discardableResult func fetchImage(url: URL?, completion: ImageServiceCompletion?) -> URLSessionDataTaskProtocol?
@@ -28,8 +28,8 @@ final class ImageService: ImageServiceProtocol {
             return nil
         }
 
-        if let image = cache.image(url: url) {
-            completion?(Result.success(image))
+        if let response = cache.image(url: url) {
+            completion?(Result.success(response))
 
             return nil
 
@@ -37,18 +37,20 @@ final class ImageService: ImageServiceProtocol {
             let request: URLRequest = URLRequest(url: url)
 
             return client.execute(request: request) { [weak self] result in
-                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
 
-                switch result {
-                case .success(let data):
-                    guard let image = UIImage(data: data) else {
-                        completion?(Result.failure(ServiceError.invalidData))
-                        return
+                    switch result {
+                    case .success(let data):
+                        guard let image = UIImage(data: data) else {
+                            completion?(Result.failure(ServiceError.invalidData))
+                            return
+                        }
+                        let response: ImageResponse = self.cache.add(image: image, url: url)
+                        completion?(Result.success(response))
+                    case .failure(let error):
+                        completion?(Result.failure(error))
                     }
-                    self.cache.add(image: image, url: url)
-                    completion?(Result.success(image))
-                case .failure(let error):
-                    completion?(Result.failure(error))
                 }
             }
         }

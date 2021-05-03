@@ -27,6 +27,7 @@ final class FiltersManager: FiltersManagerProtocol {
     fileprivate(set) var filters: [Filter] = []
 
     fileprivate(set) var responders = NSHashTable<FilterOperationsResponder>.weakObjects()
+
     let defaults: DefaultsType
 
     init(defaults: DefaultsType) {

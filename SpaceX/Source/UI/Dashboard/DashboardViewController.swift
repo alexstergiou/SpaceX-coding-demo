@@ -22,14 +22,27 @@ final class DashboardViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.setup(tableView: tableView)
-        viewModel.fetchData()
         title = viewModel.title
 
+        viewModel.setup(tableView: tableView)
+
+        fetchData()
+
+        setupRefreshControl()
     }
 }
 
 extension DashboardViewController {
+    @objc func fetchData() {
+        viewModel.fetchData()
+    }
+
+    func setupRefreshControl() {
+        let refreshControl: UIRefreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(fetchData), for: .valueChanged)
+        self.refreshControl = refreshControl
+    }
+
     func setupBarButtonItems() {
         navigationItem.largeTitleDisplayMode = .always
         let item: UIBarButtonItem = UIBarButtonItem(title: L.Dashboard.filters, style: .done, target: self, action: #selector(filterButtonTapped))
@@ -47,6 +60,11 @@ extension DashboardViewController: DashboardViewModelResponder {
     }
 
     func didFetchLaunches() {
+        refreshControl?.endRefreshing()
         setupBarButtonItems()
+    }
+
+    func didFailOnLaunchFetch() {
+        refreshControl?.endRefreshing()
     }
 }

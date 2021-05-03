@@ -24,6 +24,8 @@ protocol DashboardLaunchItemViewModelProtocol: LaunchItem {
     func fetchImage(completion: ImageServiceCompletion?)
     func fetchDetails(completion: RocketDetailsCompletion?)
 
+    func image(from response: ImageResponse?) -> UIImage?
+
     func cancel()
 }
 
@@ -45,6 +47,17 @@ final class DashboardLaunchItemViewModel: DashboardLaunchItemViewModelProtocol {
         self.imageService = imageService
         self.rocketService = rocketService
         self.dateFormatter = dateFormatter
+    }
+
+    func image(from response: ImageResponse?) -> UIImage? {
+        guard isValid(imageURLString: response?.urlString) else { return nil }
+        return response?.image
+    }
+
+    func isValid(imageURLString: String?) -> Bool {
+        guard let string = imageURLString else { return false }
+        guard let url = imageURL else { return false }
+        return string == url.absoluteString
     }
 
     var name: String {
@@ -92,7 +105,18 @@ final class DashboardLaunchItemViewModel: DashboardLaunchItemViewModelProtocol {
     func fetchImage(completion: ImageServiceCompletion?) {
         imageDataTask = imageService.fetchImage(url: imageURL, completion: { [weak self] result in
             self?.imageDataTask = nil
-            completion?(result)
+
+            switch result {
+            case .success(let image):
+                completion?(Result.success(image))
+            case .failure(let error):
+                let error = error as NSError
+                if error.code == -999 { // Cancelled request
+                    completion?(Result.success(nil))
+                    return
+                }
+                completion?(Result.failure(error))
+            }
         })
     }
 
@@ -116,6 +140,8 @@ final class DashboardLaunchItemViewModel: DashboardLaunchItemViewModelProtocol {
 
     func cancel() {
         imageDataTask?.cancel()
+        imageDataTask = nil
         detailsDataTask?.cancel()
+        detailsDataTask = nil
     }
 }

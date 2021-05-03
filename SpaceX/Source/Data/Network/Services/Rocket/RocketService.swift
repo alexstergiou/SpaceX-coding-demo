@@ -28,18 +28,20 @@ final class RocketService: RocketServiceProtocol {
         }
 
         return client.execute(request: request) { result in
-            switch result {
-            case .success(let data):
-                let decoder: JSONDecoder = JSONDecoder()
-                do {
-                    let company: Rocket = try decoder.decode(Rocket.self, from: data)
-                    completion?(Result.success(company))
-                } catch {
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let data):
+                    let decoder: JSONDecoder = JSONDecoder()
+                    do {
+                        let company: Rocket = try decoder.decode(Rocket.self, from: data)
+                        completion?(Result.success(company))
+                    } catch {
+                        completion?(Result.failure(error))
+                    }
+                    break
+                case .failure(let error):
                     completion?(Result.failure(error))
                 }
-                break
-            case .failure(let error):
-                completion?(Result.failure(error))
             }
         }
     }

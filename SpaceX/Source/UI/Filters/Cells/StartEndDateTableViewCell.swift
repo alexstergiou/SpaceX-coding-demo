@@ -60,6 +60,8 @@ final class StartEndDateTableViewCell: UITableViewCell {
 
 extension StartEndDateTableViewCell {
     func setupViews() {
+        selectionStyle = .none
+        
         contentView.addSubview(titleLabel)
         contentView.addSubview(stackView)
         

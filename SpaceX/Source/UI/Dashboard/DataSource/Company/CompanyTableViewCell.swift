@@ -38,6 +38,7 @@ final class CompanyTableViewCell: UITableViewCell {
 
 fileprivate extension CompanyTableViewCell {
     func setupViews() {
+        selectionStyle = .none
         contentView.addSubview(titleLabel)
 
         initializeConstraints()

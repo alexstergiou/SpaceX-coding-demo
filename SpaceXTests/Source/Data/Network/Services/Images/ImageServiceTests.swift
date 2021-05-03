@@ -45,7 +45,7 @@ final class ImageServiceTests: XCTestCase {
             promise.fulfill()
         }
 
-        waitForExpectations(timeout: 0.1, handler: nil)
+        waitForExpectations(timeout: expectationTimeout, handler: nil)
     }
 
     func testImageFetchDataFailure() {
@@ -67,7 +67,7 @@ final class ImageServiceTests: XCTestCase {
             promise.fulfill()
         }
 
-        waitForExpectations(timeout: 0.1, handler: nil)
+        waitForExpectations(timeout: expectationTimeout, handler: nil)
     }
 
     func testImageFetchSuccess() {
@@ -85,20 +85,21 @@ final class ImageServiceTests: XCTestCase {
             promise.fulfill()
         }
 
-        waitForExpectations(timeout: 0.1, handler: nil)
+        waitForExpectations(timeout: expectationTimeout, handler: nil)
     }
 
     func testImageFetchCachedSuccess() {
         dependenciesHelper.mockClient.result = Result.success(Data())
         let image: UIImage = mockImage
-        dependenciesHelper.mockImageCache.addedImage = image
+        let url: URL = URL(string: "https://www.spacex.com")!
+        dependenciesHelper.mockImageCache.addedImageResponse = ImageResponse(urlString: url.absoluteString, image: image)
 
         let promise = expectation(description: "testImageFetchSuccess")
 
-        subject.fetchImage(url: URL(string: "https://www.spacex.com")!) { result in
+        subject.fetchImage(url: url) { result in
             switch result {
-            case .success(let resultImage):
-                XCTAssertEqual(resultImage.pngData()?.count, image.pngData()?.count)
+            case .success(let response):
+                XCTAssertEqual(response?.image.pngData()?.count, image.pngData()?.count)
                 XCTAssertTrue(self.dependenciesHelper.mockImageCache.imageForURLCalled)
             case .failure:
                 XCTFail()
@@ -106,7 +107,7 @@ final class ImageServiceTests: XCTestCase {
             promise.fulfill()
         }
 
-        waitForExpectations(timeout: 0.1, handler: nil)
+        waitForExpectations(timeout: expectationTimeout, handler: nil)
     }
 }
 

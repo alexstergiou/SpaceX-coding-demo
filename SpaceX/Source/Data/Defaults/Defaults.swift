@@ -9,6 +9,8 @@ import Foundation
 
 let Defaults = UserDefaults.standard
 
+//Protocol wrapper around UserDefaults, for the required functionality of this excercise
+
 protocol DefaultsType: AnyObject {
     subscript<T: DefaultsValueType>(key: DefaultsKey<T>) -> T? { get set }
     func data<T>(_ key: DefaultsKey<T>) -> Data?

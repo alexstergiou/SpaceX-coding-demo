@@ -28,7 +28,6 @@ final class LaunchTableViewCellTests: XCTestCase {
         let viewModel: MockDashboardLaunchItemViewModel = MockDashboardLaunchItemViewModel(launch: mockLaunch())
         subject.update(with: viewModel)
 
-        XCTAssertTrue(viewModel.cancelCalled)
         XCTAssertNotNil(subject.viewModel)
 
         XCTAssertTrue(viewModel.fetchImageCalled)
@@ -42,6 +41,15 @@ final class LaunchTableViewCellTests: XCTestCase {
 
         XCTAssertNotNil(subject.missionValueView.valueLabel.text)
         XCTAssertNotNil(subject.missionValueView.keyLabel.text)
+    }
+
+    func testReuse() {
+        let viewModel: MockDashboardLaunchItemViewModel = MockDashboardLaunchItemViewModel(launch: mockLaunch())
+        subject.update(with: viewModel)
+
+        subject.prepareForReuse()
+
+        XCTAssertTrue(viewModel.cancelCalled)
     }
 }
 

@@ -32,6 +32,11 @@ final class TestDashboardViewModelResponder: DashboardViewModelResponder {
     func didFetchLaunches() {
         didFetchLaunchesCalled = true
     }
+
+    var didFailOnLaunchFetchCalled: Bool = false
+    func didFailOnLaunchFetch() {
+        didFailOnLaunchFetchCalled = true
+    }
 }
 
 final class DashboardViewModelTests: XCTestCase {
@@ -96,7 +101,7 @@ final class DashboardViewModelTests: XCTestCase {
 
         subject.fetchCompanyInfo()
 
-        eventually(timeout: 0.5) {
+        eventually {
             XCTAssertTrue(self.mockDataSource.updateCompanyCalled)
             XCTAssertTrue(responder.shouldReloadCalled)
             XCTAssertEqual(responder.shouldReloadSection, 0)
@@ -111,7 +116,7 @@ final class DashboardViewModelTests: XCTestCase {
 
         subject.fetchCompanyInfo()
 
-        eventually(timeout: 0.5) {
+        eventually {
             XCTAssertTrue(self.mockDataSource.updateCompanyCalled)
             XCTAssertFalse(responder.shouldReloadCalled)
             XCTAssertNil(responder.shouldReloadSection)
@@ -128,11 +133,27 @@ final class DashboardViewModelTests: XCTestCase {
 
         subject.fetchLaunchInfo()
 
-        eventually(timeout: 0.5) {
+        eventually {
             XCTAssertEqual(self.subject.launches.count, 1)
             XCTAssertTrue(self.dependenciesHelper.mockFiltersManager.updateCalled)
             XCTAssertTrue(responder.didFetchLaunchesCalled)
             XCTAssertEqual(responder.shouldReloadSection, 1)
+        }
+    }
+
+    func testFetchLaunchFailure() {
+        let responder: TestDashboardViewModelResponder = TestDashboardViewModelResponder()
+        mockDataSource.updateLaunchesSection = 1
+        subject.responder = responder
+
+        XCTAssertEqual(subject.launches.count, 0)
+
+        subject.fetchLaunchInfo()
+
+        eventually {
+            XCTAssertEqual(self.subject.launches.count, 0)
+            XCTAssertFalse(self.dependenciesHelper.mockFiltersManager.updateCalled)
+            XCTAssertTrue(responder.didFailOnLaunchFetchCalled)
         }
     }
 

@@ -42,7 +42,7 @@ final class LaunchesServiceTests: XCTestCase {
             promise.fulfill()
         }
 
-        waitForExpectations(timeout: 0.1, handler: nil)
+        waitForExpectations(timeout: expectationTimeout, handler: nil)
     }
 
     func testLaunchesInfoDecodingFailure() {
@@ -63,7 +63,7 @@ final class LaunchesServiceTests: XCTestCase {
             promise.fulfill()
         }
 
-        waitForExpectations(timeout: 0.1, handler: nil)
+        waitForExpectations(timeout: expectationTimeout, handler: nil)
     }
 
     func testLaunchesInfoSuccess() {
@@ -81,7 +81,7 @@ final class LaunchesServiceTests: XCTestCase {
             promise.fulfill()
         }
 
-        waitForExpectations(timeout: 0.1, handler: nil)
+        waitForExpectations(timeout: expectationTimeout, handler: nil)
     }
 }
 

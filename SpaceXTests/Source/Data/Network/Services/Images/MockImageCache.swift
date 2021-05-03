@@ -11,14 +11,16 @@ import UIKit
 
 final class MockImageCache: ImageCacheProtocol {
 
-    var addedImage: UIImage?
-    func add(image: UIImage, url: URL) {
-        addedImage = image
+    var addedImageResponse: ImageResponse?
+    func add(image: UIImage, url: URL) -> ImageResponse {
+        let response: ImageResponse = ImageResponse(urlString: url.absoluteString, image: image)
+        addedImageResponse = response
+        return response
     }
 
     var imageForURLCalled: Bool = false
-    func image(url: URL?) -> UIImage? {
+    func image(url: URL?) -> ImageResponse? {
         imageForURLCalled = true
-        return addedImage
+        return addedImageResponse
     }
 }

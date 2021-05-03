@@ -8,7 +8,7 @@
 import Foundation
 
 struct EndpointRequestProvider {
-    func request(url: URL?, httpMethod: HTTPMethod) -> URLRequest? {
+    func request(url: URL?, httpMethod: HTTPMethod, body: Data? = nil) -> URLRequest? {
         guard let url = url else {
             return nil
         }
@@ -16,6 +16,7 @@ struct EndpointRequestProvider {
         var urlRequest: URLRequest = URLRequest(url: url)
         urlRequest.allHTTPHeaderFields = headers
         urlRequest.httpMethod = httpMethod.rawValue
+        urlRequest.httpBody = body
 
         return urlRequest
     }

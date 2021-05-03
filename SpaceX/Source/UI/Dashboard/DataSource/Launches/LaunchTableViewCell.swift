@@ -9,6 +9,23 @@ import UIKit
 import SnapKit
 
 final class LaunchTableViewCell: UITableViewCell {
+
+    lazy var patchImageView: UIImageView = {
+        let view: UIImageView = UIImageView()
+        view.contentMode = .scaleAspectFit
+        return view
+    }()
+
+    lazy var stackView: UIStackView = {
+        let view: UIStackView = UIStackView()
+
+        view.axis = .vertical
+        view.distribution = .fillEqually
+        view.spacing = CGFloat.xs
+
+        return view
+    }()
+
     lazy var missionValueView: KeyValueLabelView = {
         let view = KeyValueLabelView()
         view.update(key: L.Dashboard.mission, value: nil)
@@ -38,23 +55,9 @@ final class LaunchTableViewCell: UITableViewCell {
         return imageView
     }()
 
-    lazy var stackView: UIStackView = {
-        let view: UIStackView = UIStackView()
-
-        view.axis = .vertical
-        view.distribution = .fillEqually
-        view.spacing = CGFloat.xs
-
-        return view
-    }()
-
-    lazy var patchImageView: UIImageView = {
-        let view: UIImageView = UIImageView()
-        view.contentMode = .scaleAspectFit
-        return view
-    }()
-
     weak var viewModel: DashboardLaunchItemViewModelProtocol?
+    var imageCompletion: ImageServiceCompletion?
+    var detailsCompletion: RocketDetailsCompletion?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -65,64 +68,28 @@ final class LaunchTableViewCell: UITableViewCell {
         fatalError()
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        reset()
+    }
+
     func update(with item: DashboardItem) {
+        reset()
+
         guard let viewModel = item as? DashboardLaunchItemViewModelProtocol else { return }
         self.viewModel = viewModel
-        viewModel.cancel()
 
         updateImage()
         updateRocketValue()
-        missionValueView.update(value: viewModel.name)
-        dateValueView.update(value: viewModel.formattedLaunchDate)
-        daysValueView.update(key: viewModel.daysSinceLaunchTitle, value: "\(viewModel.daysSinceLaunch)")
-        outcomeImageView.image = viewModel.outcomeImage
-        outcomeImageView.tintColor = viewModel.outcomeImageColor
+
+        updateValueViews(viewModel: viewModel)
+        updateOutcomeImageView(viewModel: viewModel)
     }
 }
 
+//MARK: - View Setup -
+
 fileprivate extension LaunchTableViewCell {
-    func updateImage() {
-        patchImageView.image = nil
-        patchImageView.alpha = 0.0
-
-        viewModel?.fetchImage { [weak self] result in
-            DispatchQueue.main.async {
-                guard let self = self else { return }
-
-                switch result {
-                case .success(let image):
-                    self.set(image: image)
-                case .failure:
-                    self.set(image: UIImage(named: "logo"))
-                }
-            }
-        }
-    }
-
-    func updateRocketValue() {
-        rocketValueView.update(value: "--")
-
-        viewModel?.fetchDetails(completion: { [weak self] result in
-            DispatchQueue.main.async {
-                guard let self = self else { return }
-
-                switch result {
-                case .success:
-                    self.rocketValueView.update(value: self.viewModel?.rocketDescription)
-                case .failure:
-                    break
-                }
-            }
-        })
-    }
-
-    func set(image: UIImage?) {
-        patchImageView.image = image
-        UIView.animate(withDuration: TimeInterval.animationDuration) {
-            self.patchImageView.alpha = 1.0
-        }
-    }
-
     func setupViews() {
         contentView.addSubview(patchImageView)
         contentView.addSubview(stackView)
@@ -153,6 +120,70 @@ fileprivate extension LaunchTableViewCell {
             make.width.height.equalTo(CGFloat.xl)
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().offset(-CGFloat.xs)
+        }
+    }
+}
+
+//MARK: - View Updates -
+
+fileprivate extension LaunchTableViewCell {
+    func updateValueViews(viewModel: DashboardLaunchItemViewModelProtocol) {
+        missionValueView.update(value: viewModel.name)
+        dateValueView.update(value: viewModel.formattedLaunchDate)
+        daysValueView.update(key: viewModel.daysSinceLaunchTitle, value: "\(abs(viewModel.daysSinceLaunch))")
+    }
+
+    func updateOutcomeImageView(viewModel: DashboardLaunchItemViewModelProtocol) {
+        outcomeImageView.image = viewModel.outcomeImage
+        outcomeImageView.tintColor = viewModel.outcomeImageColor
+    }
+
+    func reset() {
+        viewModel?.cancel()
+        imageCompletion = nil
+        detailsCompletion = nil
+        patchImageView.image = nil
+        patchImageView.alpha = 0.0
+    }
+
+    func updateImage() {
+        imageCompletion = { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .success(let response):
+                guard let viewModel = self.viewModel else { return }
+                if let image = viewModel.image(from: response) {
+                    self.set(image: image)
+                }
+            case .failure:
+                self.set(image: UIImage(named: "logo"))
+            }
+        }
+
+        viewModel?.fetchImage(completion: imageCompletion)
+    }
+
+    func updateRocketValue() {
+        rocketValueView.update(value: "--")
+
+        detailsCompletion = { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .success:
+                self.rocketValueView.update(value: self.viewModel?.rocketDescription)
+            case .failure:
+                break
+            }
+        }
+        viewModel?.fetchDetails(completion: detailsCompletion)
+    }
+
+    func set(image: UIImage?) {
+        patchImageView.image = image
+        UIView.animate(withDuration: TimeInterval.animationDuration) {
+            self.patchImageView.alpha = 1.0
         }
     }
 }

@@ -66,7 +66,6 @@ final class DashboardTableViewDataSource: NSObject, DashboardTableViewDataSource
 
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.rowHeight = UITableView.automaticDimension
 
         tableView.tableFooterView = UIView()
     }

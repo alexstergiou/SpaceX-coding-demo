@@ -31,22 +31,17 @@ final class LinkAlertProvider: LinkAlertProviderProtocol {
         var actions: [UIAlertAction] = []
 
         let links: Links = launchItem.launch.links
-        if let urlString = links.webcast {
-            actions.append(UIAlertAction(title: L.Dashboard.videos, style: .default, handler: { [weak self] _ in
-                self?.open(url: URL(string: urlString))
-            }))
+
+        if let action = webcastAction(links: links) {
+            actions.append(action)
         }
 
-        if let urlString = links.article {
-            actions.append(UIAlertAction(title: L.Dashboard.article, style: .default, handler: { [weak self] _ in
-                self?.open(url: URL(string: urlString))
-            }))
+        if let action = articleAction(links: links) {
+            actions.append(action)
         }
 
-        if let urlString = links.wikipedia {
-            actions.append(UIAlertAction(title: L.Dashboard.wiki, style: .default, handler: { [weak self] _ in
-                self?.open(url: URL(string: urlString))
-            }))
+        if let action = wikiAction(links: links) {
+            actions.append(action)
         }
 
         let style: UIAlertController.Style = actions.count > 0 ? .actionSheet : .alert
@@ -67,5 +62,28 @@ final class LinkAlertProvider: LinkAlertProviderProtocol {
         guard let url = url else { return }
         guard application.canOpenURL(url) else { return }
         application.open(url, options: [:], completionHandler: nil)
+    }
+}
+
+extension LinkAlertProvider {
+    func webcastAction(links: Links) -> UIAlertAction? {
+        return action(title: L.Dashboard.videos, urlString: links.webcast)
+    }
+
+    func articleAction(links: Links) -> UIAlertAction? {
+        return action(title: L.Dashboard.article, urlString: links.article)
+    }
+
+    func wikiAction(links: Links) -> UIAlertAction? {
+        return action(title: L.Dashboard.wiki, urlString: links.wikipedia)
+    }
+
+    func action(title: String, urlString: String?) -> UIAlertAction? {
+        if let urlString = urlString {
+            return UIAlertAction(title: title, style: .default, handler: { [weak self] _ in
+                self?.open(url: URL(string: urlString))
+            })
+        }
+        return nil
     }
 }

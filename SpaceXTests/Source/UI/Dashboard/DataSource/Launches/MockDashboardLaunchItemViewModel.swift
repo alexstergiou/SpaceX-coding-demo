@@ -40,6 +40,14 @@ final class MockDashboardLaunchItemViewModel: DashboardLaunchItemViewModelProtoc
         cancelCalled = true
     }
 
+
+    var validateImageResponseCalled: Bool = false
+    var image: UIImage?
+    func image(from response: ImageResponse?) -> UIImage? {
+        validateImageResponseCalled = true
+        return image
+    }
+
     var launch: Launch
 
     var type: DashboardItemType = .launch

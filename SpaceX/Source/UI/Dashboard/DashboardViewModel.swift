@@ -17,6 +17,7 @@ protocol DashboardViewModelProtocol {
 protocol DashboardViewModelResponder: AnyObject {
     func shouldReload(section: Int)
     func didFetchLaunches()
+    func didFailOnLaunchFetch()
 }
 
 final class DashboardViewModel: DashboardViewModelProtocol {
@@ -92,7 +93,7 @@ extension DashboardViewModel {
                     self.filterLaunchesAndUpdateDataSource()
                     self.responder?.didFetchLaunches()
                 case .failure:
-                    break
+                    self.responder?.didFailOnLaunchFetch()
                 }
             }
         }

@@ -9,6 +9,15 @@ import XCTest
 
 @testable import SpaceX
 
+final class TestRefreshControl: UIRefreshControl {
+
+    var endRefreshingCalled: Bool = false
+    override func endRefreshing() {
+        super.endRefreshing()
+        endRefreshingCalled = true
+    }
+}
+
 final class DashboardViewControllerTests: XCTestCase {
 
     var viewModel: MockDashboardViewModel!
@@ -37,9 +46,22 @@ final class DashboardViewControllerTests: XCTestCase {
     }
 
     func testDidFetchLaunches() {
+        subject.loadAndAppear()
+        let refreshControl: TestRefreshControl = TestRefreshControl()
+        subject.refreshControl = refreshControl
         subject.didFetchLaunches()
+        XCTAssertTrue(refreshControl.endRefreshingCalled)
         XCTAssertNotNil(subject.navigationItem.rightBarButtonItem)
         XCTAssertEqual(subject.navigationItem.largeTitleDisplayMode, .always)
+    }
+
+    func testDidFailLaunchFetch() {
+        subject.loadAndAppear()
+        let refreshControl: TestRefreshControl = TestRefreshControl()
+        subject.refreshControl = refreshControl
+        subject.didFailOnLaunchFetch()
+        XCTAssertTrue(refreshControl.endRefreshingCalled)
+        XCTAssertNil(subject.navigationItem.rightBarButtonItem)
     }
 
     func testFilterButtonTapped() {

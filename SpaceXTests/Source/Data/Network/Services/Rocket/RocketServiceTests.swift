@@ -43,7 +43,7 @@ final class RocketServiceTests: XCTestCase {
             promise.fulfill()
         }
 
-        waitForExpectations(timeout: 0.1, handler: nil)
+        waitForExpectations(timeout: expectationTimeout, handler: nil)
     }
 
     func testRocketInfoDecodingFailure() {
@@ -64,7 +64,7 @@ final class RocketServiceTests: XCTestCase {
             promise.fulfill()
         }
 
-        waitForExpectations(timeout: 0.1, handler: nil)
+        waitForExpectations(timeout: expectationTimeout, handler: nil)
     }
 
     func testRocketInfoSuccess() {
@@ -82,7 +82,7 @@ final class RocketServiceTests: XCTestCase {
             promise.fulfill()
         }
 
-        waitForExpectations(timeout: 0.1, handler: nil)
+        waitForExpectations(timeout: expectationTimeout, handler: nil)
     }
 }
 

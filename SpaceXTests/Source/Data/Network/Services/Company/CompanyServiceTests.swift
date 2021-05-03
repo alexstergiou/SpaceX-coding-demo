@@ -43,7 +43,7 @@ final class CompanyServiceTests: XCTestCase {
             promise.fulfill()
         }
 
-        waitForExpectations(timeout: 0.1, handler: nil)
+        waitForExpectations(timeout: expectationTimeout, handler: nil)
     }
 
     func testCompanyInfoDecodingFailure() {
@@ -64,7 +64,7 @@ final class CompanyServiceTests: XCTestCase {
             promise.fulfill()
         }
 
-        waitForExpectations(timeout: 0.1, handler: nil)
+        waitForExpectations(timeout: expectationTimeout, handler: nil)
     }
 
     func testCompanyInfoSuccess() {
@@ -82,7 +82,7 @@ final class CompanyServiceTests: XCTestCase {
             promise.fulfill()
         }
 
-        waitForExpectations(timeout: 0.1, handler: nil)
+        waitForExpectations(timeout: expectationTimeout, handler: nil)
     }
 }
 
